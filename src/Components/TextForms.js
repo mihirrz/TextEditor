@@ -75,7 +75,7 @@ export default function TextForms(props) {
             _________________________________________________________________________________________________________________________________________________
           </p>
           <p>
-            {Text.split(" ").length} words {Text.length} Characters
+            {Text.split(" ").filter((element)=>{return element.length!=0  }).length} words {Text.length} Characters
           </p>
           <p>{0.008 * Text.split(" ").length} Minutes read</p>
           <p>
