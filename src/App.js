@@ -4,6 +4,8 @@ import Navbar from "./Components/Navbar";
 import TextForms from "./Components/TextForms";
 import React, { useState } from "react";
 import Alert from "./Components/Alert";
+import Footer from "./Components/Footer";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   const [mode, setmode] = useState("light");
@@ -25,19 +27,19 @@ function App() {
       setmode("dark");
       setmodeText("Disable Dark Mode");
       document.body.style.backgroundColor = "#2c3237";
-      showAlert("Dark mode has been enabled", "success")
-      document.title = "Terta - Dark Mode"
+      showAlert("Dark mode has been enabled", "success");
+      document.title = "Terta Home - Dark Mode";
     } else {
       setmode("light");
       setmodeText("Enable Dark Mode");
       document.body.style.backgroundColor = "white";
-      showAlert("Light mode has been enabled", "success")
-      document.title = "Terta - Light Mode"
+      showAlert("Light mode has been enabled", "success");
+      document.title = "Terta Home - Light Mode";
     }
   };
 
   return (
-    <>
+    <Router>
       <Navbar
         title="TertaTextEditor"
         about="About Us"
@@ -45,12 +47,19 @@ function App() {
         toggleMode={toggleMode}
         textMode={modeText}
       />
-      <Alert alert={alert}/>
+      <Alert alert={alert} />
       <div className="container">
-        <TextForms heading="Enter your text here :" mode={mode} />
-        {/* <About /> */}
+        <Switch>
+          <Route exact path="/about">
+            <About mode={mode} />
+          </Route>
+
+          <Route exact path="/">
+            <TextForms heading="Enter your text here :" mode={mode} />
+          </Route>
+        </Switch>
       </div>
-    </>
+    </Router>
   );
 }
 
